@@ -60,13 +60,13 @@ namespace FightToDeath
                 }
                 Console.WriteLine($"{warB.Name} has now {warB.Health} health left.");
                 Console.WriteLine($"{warA.Name} has now {warA.Health} health left.");
-                if (warA.Health < 50)
+                if (warA.Health < 50 && warA.Health > 0)
                 {
-                    Heal(warA);
+                    Consumable.usePotion(warA.MaxPotions, warA);
                 }
-                if (warB.Health < 50)
+                if (warB.Health < 50 && warB.Health > 0)
                 {
-                    Heal(warB);
+                    Consumable.usePotion(warB.MaxPotions, warB);
                 }
                 Console.WriteLine("--------");
                 turnCounter++;
@@ -92,18 +92,6 @@ namespace FightToDeath
             return rnd.Next(1, max);
         }
 
-        // Has a 50% chance to heal.
-        public static void Heal(Warrior warrior)
-        {
-            if (RollDice(3) == 2)
-            {
-                warrior.Health += 50;
-                Console.WriteLine($"{warrior.Name} has healed for 50 health and now has {warrior.Health} health.", Color.YellowGreen);
-            }
-            else
-            {
-                Console.WriteLine($"{warrior.Name} can't open a bottle with potion, holy shit.", Color.Tomato);
-            }
-        }
+        
     }
 }

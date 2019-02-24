@@ -26,11 +26,18 @@ namespace FightToDeath
 
         private static bool MainMenu()
         {
-            Warrior bob = new Warrior("Bob Tabor", 100, 100, 50);
-            Warrior blewboar = new Warrior("Blewboar", 100, 100, 50);
+            // Health, attack, block, potions.
+            Warrior bob = new Warrior("Bob Tabor", 100, 100, 50, 3);
+            Warrior blewboar = new Warrior("Blewboar", 100, 100, 50, 3);
 
             Console.Clear();
-            Console.WriteLine("DEATH FIGHT");
+            Console.WriteLine(@"██████╗ ███████╗ █████╗ ████████╗██╗  ██╗    ███████╗██╗ ██████╗ ██╗  ██╗████████╗
+██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██║  ██║    ██╔════╝██║██╔════╝ ██║  ██║╚══██╔══╝
+██║  ██║█████╗  ███████║   ██║   ███████║    █████╗  ██║██║  ███╗███████║   ██║   
+██║  ██║██╔══╝  ██╔══██║   ██║   ██╔══██║    ██╔══╝  ██║██║   ██║██╔══██║   ██║   
+██████╔╝███████╗██║  ██║   ██║   ██║  ██║    ██║     ██║╚██████╔╝██║  ██║   ██║   
+╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
+                                                                                  ", Color.Red);
             Console.WriteLine("Press enter to start game or type \"exit\" to quit.");
             string answer = Console.ReadLine();
             if (answer == "exit")
@@ -39,6 +46,7 @@ namespace FightToDeath
             }
             else
             {
+                Console.Clear();
                 Battle.StartFight(bob, blewboar);
                 return true;
             }
