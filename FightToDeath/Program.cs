@@ -28,8 +28,8 @@ namespace FightToDeath
         private static bool MainMenu()
         {
             // Health, attack, block, potions.
-            Warrior bob = new Warrior("Bob Tabor", 100, 100, 50);
-            Warrior blewboar = new Warrior("Blewboar", 100, 100, 50);
+            Warrior enemy = new Warrior("Bob Tabor", 100, 100, 50);
+            Warrior player = new Warrior("Blewboar", 100, 100, 50);
 
             Console.Clear();
             Console.WriteLine(@"██████╗ ███████╗ █████╗ ████████╗██╗  ██╗    ███████╗██╗ ██████╗ ██╗  ██╗████████╗
@@ -48,7 +48,7 @@ namespace FightToDeath
             else
             {
                 Console.Clear();
-                Battle.StartFight(bob, blewboar);
+                Battle.StartFight(player, enemy);
                 return true;
             }
             

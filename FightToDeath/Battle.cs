@@ -23,17 +23,17 @@ namespace FightToDeath
         
         
         // Main Combat function.
-        public static void Combat(Warrior warA, Warrior warB)
+        public static void Combat(Warrior player, Warrior enemy)
         {
-            if (warA.Health <= 0 || warB.Health <= 0)
+            if (player.Health <= 0 || enemy.Health <= 0)
             {
-                if (warA.Health > 0 && warB.Health <= 0)
+                if (player.Health > 0 && enemy.Health <= 0)
                 {
-                    Console.WriteLine($"{warB.Name} died and {warA.Name} has won.");
+                    Console.WriteLine($"{enemy.Name} died and {player.Name} has won.");
                 }
-                else if (warB.Health > 0 && warA.Health <= 0)
+                else if (enemy.Health > 0 && player.Health <= 0)
                 {
-                    Console.WriteLine($"{warA.Name} died and {warB.Name} has won.");
+                    Console.WriteLine($"{player.Name} died and {enemy.Name} has won.");
                 }
                 
                 Console.ReadLine(); // so the shit doesnt close
@@ -41,36 +41,75 @@ namespace FightToDeath
             }
             else
             {
-                // Decide who attacks first in every turn, 50/50 chance
+                // Decide who attacks first in every turn, 50/50 chance, if rolldice is 1 then its players turn, 2 - ai.
                 if (RollDice(3) == 1)
                 {
                     Console.WriteLine("Turn {0}:", turnCounter);
-                    Console.WriteLine($"{warA.Name} got a chance to strike first!",  Color.Orange);
-                    int warAAtk = CalcDmg(warA, warB);
-                    warB.Health -= warAAtk;
-                    Console.WriteLine($"{warA.Name} dealt {warAAtk} damage.", Color.Red);
+                    Console.WriteLine($"{player.Name} got a chance to strike first!", Color.Orange);
+                    Console.WriteLine("What will you do?");
+                    Console.WriteLine("1. Attack.");
+                    Console.WriteLine("2. Drink potion.");
+                    Console.WriteLine("3. Info.");
+                    string answer;
+                    do
+                    {
+                        answer = Console.ReadLine();
+
+                        if (answer == "1")
+                        {
+                            int playerAtk = CalcDmg(player, enemy);
+                            enemy.Health -= playerAtk;
+                            Console.WriteLine($"{player.Name} dealt {playerAtk} damage.", Color.Red);
+                            break;
+                        }
+                        else if (answer == "2")
+                        {
+                            Consumable.usePotion(player.Potion.Amount, player);
+                            break;
+                        }
+                        else if (answer == "3")
+                        {
+                            Console.WriteLine($"Your health: {player.Health}");
+                            Console.WriteLine($"{enemy.Name}'s health: {enemy.Health}");
+                            Console.WriteLine($"You have {player.Potion.Amount} potions left.");
+                            Console.WriteLine($"{enemy.Name} has {enemy.Potion.Amount} potions left.");
+                        }
+                    } while (answer == "3");
                 }
                 else
                 {
+                    // Enemy turn description
                     Console.WriteLine("Turn {0}:", turnCounter);
-                    Console.WriteLine($"{warB.Name} got a chance to strike first!", Color.LightGreen);
-                    int warBAtk = CalcDmg(warB, warA);
-                    warA.Health -= warBAtk;
-                    Console.WriteLine($"{warB.Name} dealt {warBAtk} damage.", Color.Red);                
+                    Console.WriteLine($"{enemy.Name} got a chance to strike first!", Color.LightGreen);
+                    int enemyAction = RollDice(3);
+                    if (enemyAction == 1)
+                    {
+                        int enemyAtk = CalcDmg(enemy, player);
+                        player.Health -= enemyAtk;
+                        Console.WriteLine($"{enemy.Name} dealt {enemyAtk} damage.", Color.Red);
+                    }
+                    else if (enemyAction == 2)
+                    {
+                        if (enemy.Health < 50 && enemy.Health > 0)
+                        {
+                            Consumable.usePotion(enemy.Potion.Amount, enemy);
+                        }
+                        else if (enemy.Health > 50)
+                        {
+                            int enemyAtk = CalcDmg(enemy, player);
+                            player.Health -= enemyAtk;
+                            Console.WriteLine($"{enemy.Name} dealt {enemyAtk} damage.", Color.Red);
+                        }
+                    }
+                                    
                 }
-                Console.WriteLine($"{warB.Name} has now {warB.Health} health left.");
-                Console.WriteLine($"{warA.Name} has now {warA.Health} health left.");
-                if (warA.Health < 50 && warA.Health > 0)
-                {
-                    Consumable.usePotion(warA.Potion.Amount, warA);
-                }
-                if (warB.Health < 50 && warB.Health > 0)
-                {
-                    Consumable.usePotion(warB.Potion.Amount, warB);
-                }
+                Console.WriteLine($"{enemy.Name} has now {enemy.Health} health left.");
+                Console.WriteLine($"{player.Name} has now {player.Health} health left.");
+                
                 Console.WriteLine("--------");
                 turnCounter++;
-                Combat(warA, warB);
+                Thread.Sleep(2000);
+                Combat(player, enemy);
             }
         }
 
