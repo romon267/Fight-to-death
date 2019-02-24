@@ -22,7 +22,7 @@ namespace FightToDeath
 
         
         
-
+        // Main Combat function.
         public static void Combat(Warrior warA, Warrior warB)
         {
             if (warA.Health <= 0 || warB.Health <= 0)
@@ -62,11 +62,11 @@ namespace FightToDeath
                 Console.WriteLine($"{warA.Name} has now {warA.Health} health left.");
                 if (warA.Health < 50 && warA.Health > 0)
                 {
-                    Consumable.usePotion(warA.MaxPotions, warA);
+                    Consumable.usePotion(warA.Potion.Amount, warA);
                 }
                 if (warB.Health < 50 && warB.Health > 0)
                 {
-                    Consumable.usePotion(warB.MaxPotions, warB);
+                    Consumable.usePotion(warB.Potion.Amount, warB);
                 }
                 Console.WriteLine("--------");
                 turnCounter++;
@@ -74,6 +74,7 @@ namespace FightToDeath
             }
         }
 
+        // Calculates damage: Attack value - Block value.
         public static int CalcDmg(Warrior warA, Warrior warB)
         {
             int Damage = warA.GenerateAttack() - warB.GenerateBlock();

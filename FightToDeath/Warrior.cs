@@ -12,7 +12,9 @@ namespace FightToDeath
         public int Health { get; set; } = 0;
         public int MaxAttack { get; set; } = 0;
         public int MaxBlock { get; set; } = 0;
-        public int MaxPotions { get; set; } = 0;
+        
+
+        public Consumable Potion = new Consumable("Health Potion", 50, 3); 
 
         // new random class
         Random rnd = new Random();
@@ -21,14 +23,13 @@ namespace FightToDeath
         public Warrior(string name = "Warrior",
             int health = 0,
             int maxAttack = 0,
-            int maxBlock = 0,
-            int maxPotions = 0)
+            int maxBlock = 0)
         {
             Name = name;
             Health = health;
             MaxAttack = maxAttack;
             MaxBlock = maxBlock;
-            MaxPotions = maxPotions;
+            
         }
 
         // random attack number generator

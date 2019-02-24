@@ -10,11 +10,13 @@ namespace FightToDeath
 {
     class Consumable : Item
     {
+        public int Effect;
         public int Amount;
 
-        Consumable(string name, int amount)
+        public Consumable(string name, int effect, int amount)
         {
             Name = name;
+            Effect = effect;
             Amount = amount;
         }
 
@@ -22,7 +24,7 @@ namespace FightToDeath
         {
             if (potionsLeft == 0)
             {
-                Console.WriteLine($"{war.Name} desperatly tries to find potion but there are none left on his belt", Color.Tomato);
+                Console.WriteLine($"{war.Name} desperatly tries to find potion but there are none left on his belt!", Color.Tomato);
             }
             else if (potionsLeft > 0)
             {
@@ -35,9 +37,9 @@ namespace FightToDeath
         {
             if (Battle.RollDice(3) == 2)
             {
-                warrior.MaxPotions -= 1;
-                warrior.Health += 50;
-                Console.WriteLine($"{warrior.Name} succesfully used a healing potion and gained 50 health,\nand now has {warrior.Health} health.", Color.YellowGreen);
+                warrior.Potion.Amount -= 1;
+                warrior.Health += warrior.Potion.Effect;
+                Console.WriteLine($"{warrior.Name} succesfully used a {warrior.Potion.Name} and gained {warrior.Potion.Effect} health,\nand now has {warrior.Health} health.", Color.YellowGreen);
             }
             else
             {
