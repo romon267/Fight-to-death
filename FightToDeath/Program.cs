@@ -28,8 +28,8 @@ namespace FightToDeath
         private static bool MainMenu()
         {
             // Health, attack, block, potions.
-            Warrior enemy = new Warrior("Bob Tabor", 100, 100, 50);
-            Warrior player = new Warrior("Blewboar", 100, 100, 50);
+            Warrior enemy = new Warrior("Bob Tabor", 150, 50, 25);
+            Warrior player = new Warrior("Blewboar", 150, 50, 25);
 
             Console.Clear();
             Console.WriteLine(@"██████╗ ███████╗ █████╗ ████████╗██╗  ██╗    ███████╗██╗ ██████╗ ██╗  ██╗████████╗
@@ -39,7 +39,7 @@ namespace FightToDeath
 ██████╔╝███████╗██║  ██║   ██║   ██║  ██║    ██║     ██║╚██████╔╝██║  ██║   ██║   
 ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
                                                                                   ", Color.Red);
-            Console.WriteLine("Press enter to start game or type \"exit\" to quit.");
+            Console.WriteLine("Press enter to start game or type \"exit\" to quit.", Color.AntiqueWhite);
             string answer = Console.ReadLine();
             if (answer == "exit")
             {
@@ -59,13 +59,13 @@ namespace FightToDeath
             
 
 
-            Console.WriteLine("Welcome to the arena, gladiator!");
+            Console.WriteLine("Welcome to the arena, gladiator!", Color.AntiqueWhite);
             Thread.Sleep(1000);
-            Console.WriteLine("Your name is Blewboar the almighty!");
+            Console.WriteLine("Your name is Blewboar the almighty!", Color.AntiqueWhite);
             Thread.Sleep(1000);
             Console.WriteLine(@"Each turn you will have a chance to perform an action of some kind:\n
-You may attack your opponent or use a healing potion, but be wise, you only have 3 of them on your belt!");
-            Console.WriteLine("No go kill your opponent!");
+You may attack your opponent or use a healing potion, but be wise, you only have 3 of them on your belt!", Color.AntiqueWhite);
+            Console.WriteLine("No go kill your opponent!", Color.AntiqueWhite);
             Console.ReadLine();
         }
     }

@@ -10,7 +10,7 @@ namespace FightToDeath
 {
     class Consumable : Item
     {
-        public int Effect;
+        public double Effect;
         public int Amount;
 
         public Consumable(string name, int effect, int amount)
@@ -32,18 +32,28 @@ namespace FightToDeath
             }
         }
 
-        // Has a 50% chance to heal.
+        // Has a 75% to heal -> 25% to critical heal and 25% to fail.
         public static void Heal(Warrior warrior)
         {
-            if (Battle.RollDice(3) == 2)
+            int healChance = Battle.RollDice(21);
+            if (healChance <= 5)
+            {
+                Console.WriteLine($"{warrior.Name} can't open a bottle with potion, holy shit.", Color.Tomato);
+            }
+
+            else if (healChance >= 6 && healChance <= 18)
+            {
+                warrior.Potion.Amount -= 1;
+                double healEffect = warrior.Potion.Effect * 0.7;
+                warrior.Health += healEffect;
+                Console.WriteLine($"{warrior.Name} succesfully used a {warrior.Potion.Name} and gained {healEffect} health,\nand now has {warrior.Health} health.", Color.YellowGreen);
+            }
+
+            else
             {
                 warrior.Potion.Amount -= 1;
                 warrior.Health += warrior.Potion.Effect;
-                Console.WriteLine($"{warrior.Name} succesfully used a {warrior.Potion.Name} and gained {warrior.Potion.Effect} health,\nand now has {warrior.Health} health.", Color.YellowGreen);
-            }
-            else
-            {
-                Console.WriteLine($"{warrior.Name} can't open a bottle with potion, holy shit.", Color.Tomato);
+                Console.WriteLine($"{warrior.Name} critically used a {warrior.Potion.Name} and gained {warrior.Potion.Effect} health,\nand now has {warrior.Health} health!!!", Color.Yellow);
             }
         }
     }

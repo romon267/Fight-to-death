@@ -29,27 +29,27 @@ namespace FightToDeath
             {
                 if (player.Health > 0 && enemy.Health <= 0)
                 {
-                    Console.WriteLine($"{enemy.Name} died and {player.Name} has won.");
+                    Console.WriteLine($"{enemy.Name} died and {player.Name} has won. Congrats!", Color.Yellow);
                 }
                 else if (enemy.Health > 0 && player.Health <= 0)
                 {
-                    Console.WriteLine($"{player.Name} died and {enemy.Name} has won.");
+                    Console.WriteLine($"{player.Name} died and {enemy.Name} has won.", Color.OrangeRed);
                 }
                 
-                Console.ReadLine(); // so the shit doesnt close
-                
+                Console.ReadLine(); // so the shit doesnt close. 
             }
             else
             {
                 // Decide who attacks first in every turn, 50/50 chance, if rolldice is 1 then its players turn, 2 - ai.
                 if (RollDice(3) == 1)
                 {
-                    Console.WriteLine("Turn {0}:", turnCounter);
-                    Console.WriteLine($"{player.Name} got a chance to strike first!", Color.Orange);
-                    Console.WriteLine("What will you do?");
-                    Console.WriteLine("1. Attack.");
-                    Console.WriteLine("2. Drink potion.");
-                    Console.WriteLine("3. Info.");
+                    Console.WriteLine("Turn {0}:", turnCounter, Color.AntiqueWhite);
+                    Console.WriteLine($"{player.Name} sees a chance to make a move!", Color.LightGreen);
+                    Console.WriteLine("What will you do?", Color.AntiqueWhite);
+                    Console.WriteLine("1. Attack.", Color.AntiqueWhite);
+                    Console.WriteLine("2. Raise Shield.", Color.AntiqueWhite);
+                    Console.WriteLine("3. Drink potion.", Color.AntiqueWhite);
+                    Console.WriteLine("4. Info.", Color.AntiqueWhite);
                     string answer;
                     do
                     {
@@ -57,76 +57,113 @@ namespace FightToDeath
 
                         if (answer == "1")
                         {
-                            int playerAtk = CalcDmg(player, enemy);
-                            enemy.Health -= playerAtk;
-                            Console.WriteLine($"{player.Name} dealt {playerAtk} damage.", Color.Red);
+                            Attack(player, enemy);
                             break;
                         }
                         else if (answer == "2")
                         {
-                            Consumable.usePotion(player.Potion.Amount, player);
+                            player.Shield = true;
+                            Console.WriteLine("You raised the shield. Next enemy attack will be entirely blocked!", Color.LightGreen);
                             break;
                         }
                         else if (answer == "3")
                         {
-                            Console.WriteLine($"Your health: {player.Health}");
-                            Console.WriteLine($"{enemy.Name}'s health: {enemy.Health}");
-                            Console.WriteLine($"You have {player.Potion.Amount} potions left.");
-                            Console.WriteLine($"{enemy.Name} has {enemy.Potion.Amount} potions left.");
+                            Consumable.usePotion(player.Potion.Amount, player);
+                            break;
                         }
-                    } while (answer == "3");
+                        else if (answer == "4")
+                        {
+                            Console.WriteLine($"Your health: {player.Health}", Color.IndianRed);
+                            Console.WriteLine($"{enemy.Name}'s health: {enemy.Health}", Color.DarkOrange);
+                            Console.WriteLine($"You have {player.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
+                            Console.WriteLine($"{enemy.Name} has {enemy.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
+                        }
+                    } while (answer == "4");
                 }
                 else
                 {
                     // Enemy turn description
-                    Console.WriteLine("Turn {0}:", turnCounter);
-                    Console.WriteLine($"{enemy.Name} got a chance to strike first!", Color.LightGreen);
-                    int enemyAction = RollDice(3);
+                    Console.WriteLine("Turn {0}:", turnCounter, Color.AntiqueWhite);
+                    Console.WriteLine($"{enemy.Name} sees a chance to make a move!", Color.Orange);
+                    int enemyAction = RollDice(4);
                     if (enemyAction == 1)
                     {
-                        int enemyAtk = CalcDmg(enemy, player);
-                        player.Health -= enemyAtk;
-                        Console.WriteLine($"{enemy.Name} dealt {enemyAtk} damage.", Color.Red);
+                        Attack(enemy, player);
                     }
                     else if (enemyAction == 2)
                     {
-                        if (enemy.Health < 50 && enemy.Health > 0)
+                        if (enemy.Health <= 75 && enemy.Health > 0)
                         {
                             Consumable.usePotion(enemy.Potion.Amount, enemy);
                         }
-                        else if (enemy.Health > 50)
+                        else if (enemy.Health > 75)
                         {
-                            int enemyAtk = CalcDmg(enemy, player);
-                            player.Health -= enemyAtk;
-                            Console.WriteLine($"{enemy.Name} dealt {enemyAtk} damage.", Color.Red);
+                            Attack(enemy, player);
+                        }
+                    }
+                    else if (enemyAction == 3)
+                    {
+                        if (enemy.Shield == false)
+                        {
+                            enemy.Shield = true;
+                            Console.WriteLine($"{enemy.Name} is rising his shield to cover!", Color.Orange);
+                        }
+                        else
+                        {
+                            Attack(enemy, player); // Some room for reimagining AI.
                         }
                     }
                                     
                 }
-                Console.WriteLine($"{enemy.Name} has now {enemy.Health} health left.");
-                Console.WriteLine($"{player.Name} has now {player.Health} health left.");
                 
-                Console.WriteLine("--------");
+                Console.WriteLine($"{player.Name} has now {player.Health} health left.", Color.IndianRed);
+                Console.WriteLine($"{enemy.Name} has now {enemy.Health} health left.", Color.DarkOrange);
+
+                Console.WriteLine("--------", Color.PaleTurquoise);
+                
                 turnCounter++;
                 Thread.Sleep(2000);
                 Combat(player, enemy);
             }
         }
 
-        // Calculates damage: Attack value - Block value.
-        public static int CalcDmg(Warrior warA, Warrior warB)
+        public static void Attack(Warrior warA, Warrior warB)
         {
-            int Damage = warA.GenerateAttack() - warB.GenerateBlock();
-            if (Damage > 0)
+            int attackChance = RollDice(21);
+            if (attackChance <= 5)
             {
-                return Damage;
+                Console.WriteLine($"{warA.Name} missed!", Color.Teal);
             }
-            else { return Damage = 0; };
+            else
+            {
+                int strike = RollDice(21);
+                if (strike <= 5 || warB.Shield == true)
+                {
+                    warB.Shield = false;
+                    Console.WriteLine($"{warB.Name} blocked entire blow!", Color.BlanchedAlmond);
+                }
+                else if (strike >= 6 && strike <= 10)
+                {
+                    double damage = (warA.BaseAttack - warB.BaseBlock);
+                    warB.Health -= damage;
+                    Console.WriteLine($"{warB.Name} partially blocked and suffered {damage} damage.", Color.PaleVioletRed);
+                }
+                else if (strike >= 11 && strike <= 18)
+                {
+                    warB.Health -= warA.BaseAttack;
+                    Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                }
+                else
+                {
+                    double damage = warA.BaseAttack * 1.5;
+                    warB.Health -= damage;
+                    Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage}!!!", Color.DarkRed);
+                }
+            }
         }
 
-       
-
-        // Just gives back a random number between zero and max - u can set max.
+        
+        // Just gives back a random number between zero and max. Use it like a dice, for example set 21 for 20d dice;
         public static int RollDice(int max)
         {
             return rnd.Next(1, max);

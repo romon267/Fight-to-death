@@ -9,39 +9,31 @@ namespace FightToDeath
     class Warrior
     {
         public string Name { get; set; } = "Warrior";
-        public int Health { get; set; } = 0;
-        public int MaxAttack { get; set; } = 0;
-        public int MaxBlock { get; set; } = 0;
+        public double Health { get; set; } = 0;
+        public double BaseAttack { get; set; } = 0;
+        public double BaseBlock { get; set; } = 0;
+
+        public bool Shield = false;
         
 
-        public Consumable Potion = new Consumable("Health Potion", 50, 3); 
+        public Consumable Potion = new Consumable("Health Potion", 50, 3);
 
-        // new random class
-        Random rnd = new Random();
+       
+        
 
         // Constructor
         public Warrior(string name = "Warrior",
-            int health = 0,
-            int maxAttack = 0,
-            int maxBlock = 0)
+            double health = 0,
+            double baseAttack = 0,
+            double baseBlock = 0)
         {
             Name = name;
             Health = health;
-            MaxAttack = maxAttack;
-            MaxBlock = maxBlock;
+            BaseAttack = baseAttack;
+            BaseBlock = baseBlock;
             
         }
 
-        // random attack number generator
-        public int GenerateAttack()
-        {
-            return rnd.Next(1, MaxAttack);
-        }
-
-        //random block num gen
-        public int GenerateBlock()
-        {
-            return rnd.Next(1, MaxBlock);
-        }
+        
     }
 }
