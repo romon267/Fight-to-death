@@ -54,9 +54,9 @@ namespace FightToDeath
                 // Health, attack, block, potions.
                 Player player = new Player("Blewboar", 150);
                 Enemy enemy = new Enemy("Bob Tabor", 150);
-                player.SetWeapon("Old Wooden Shield", "Shield", 50, 25);
+                player.SetWeapon("wooden dagers", "Daggers", 55, 0);
                 player.EquipWeapon();
-                enemy.SetWeapon("Bob's trusted Shield", "Shield", 50, 25);
+                enemy.SetWeapon("Bob's faithful shield", "Shield", 50, 25);
                 enemy.EquipWeapon();
                 Console.WriteLine("Welcome to the arena, gladiator!", Color.AntiqueWhite);
                 Thread.Sleep(1000);

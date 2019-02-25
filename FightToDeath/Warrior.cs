@@ -48,6 +48,7 @@ namespace FightToDeath
 
         // Unique properties, like raise shield, pray, rolling chances etc
         public bool RaiseShield = false;
+        public bool SharpDaggers = false;
 
 
     }
