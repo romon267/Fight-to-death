@@ -13,11 +13,12 @@ namespace FightToDeath
         public double Effect;
         public int Amount;
 
-        public Consumable(string name, int effect, int amount)
+        public Consumable(string name, int effect, int amount, double cost)
         {
             Name = name;
             Effect = effect;
             Amount = amount;
+            Cost = cost;
         }
 
         // Check if there are potions left and if yes -> trigger heal(), Player overload.

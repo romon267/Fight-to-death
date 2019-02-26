@@ -12,6 +12,7 @@ namespace FightToDeath
         public double Health { get; set; } = 0;
         public double BaseAttack { get; set; } = 0;
         public double BaseBlock { get; set; } = 0;
+        public double Gold { get; set; } = 0;
         public Weapon Weapon = new Weapon();
 
         // Constructor
@@ -27,12 +28,12 @@ namespace FightToDeath
             
         }
          // Setting weapon and equiping
-        public void SetWeapon(string name, string type, double damage, double block)
+        public void SetWeapon(Weapon wep)
         {
-            Weapon.Name = name;
-            Weapon.Type = type;
-            Weapon.Damage = damage;
-            Weapon.Block = block;
+            Weapon.Name = wep.Name;
+            Weapon.Type = wep.Type;
+            Weapon.Damage = wep.Damage;
+            Weapon.Block = wep.Block;
         }
 
         public void GetWeapon()

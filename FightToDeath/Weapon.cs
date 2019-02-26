@@ -20,12 +20,13 @@ namespace FightToDeath
             Block = 0;
         }
 
-        public Weapon(string name, string type, double damage, double block)
+        public Weapon(string name, string type, double damage, double block, double cost)
         {
             Name = name;
             Type = type;
             Damage = damage;
             Block = block;
+            Cost = cost;
         }
 
         

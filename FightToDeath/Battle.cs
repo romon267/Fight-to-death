@@ -17,6 +17,20 @@ namespace FightToDeath
         static int fightDone = 0;
         static Random rnd = new Random();
 
+        public static void ResetChar(Enemy enemy)
+        {
+            enemy.Health = 150;
+            enemy.Potion.Amount = 3;
+        }
+        public static void ResetChar(Player player)
+        {
+            Program.playerDead = false;
+            player.Health = 100;
+            player.Potion.Amount = 3;
+            player.Gold = 0;
+        }
+
+
         public static void StartFight(Player WarriorA, Enemy WarriorB)
         {
             turnCounter = 1;
@@ -24,6 +38,7 @@ namespace FightToDeath
             do
             {
                 Combat(WarriorA, WarriorB);
+
             } while (fightDone == 0);
         }
 
@@ -37,12 +52,16 @@ namespace FightToDeath
                 if (player.Health > 0 && enemy.Health <= 0)
                 {
                     Console.WriteLine($"{enemy.Name} died and {player.Name} has won. Congrats!", Color.Yellow);
+                    player.Gold += enemy.Gold;
                     fightDone += 1;
+                    ResetChar(enemy);
                 }
                 else if (enemy.Health > 0 && player.Health <= 0)
                 {
                     Console.WriteLine($"{player.Name} died and {enemy.Name} has won.", Color.OrangeRed);
                     fightDone += 1;
+                    Program.playerDead = true;
+                    
                 }
                 
                 Console.ReadLine(); // so the shit doesnt close. 
