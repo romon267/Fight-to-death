@@ -1,12 +1,12 @@
 # Fight-to-death
 The game about 2 warriors fighting to the death.
 
-25.06.2019 - The game currently has 2 weapons(like classes):
-"Sword & shield" and "Daggers".
-Each of them have unique behavior in fight.
-Both player and enemy can use both of weapons.
-In next updates I'm planning to add more enemies and merchant with stuff between fights,
-so the gold cost will be added to item class and enemies will drop gold or maybe items(maybe both).
-Need to do some basic game logic - transition between fight and merchant store and to the
-next fight with NEW enemy. After player's death there should be a game over screen with "Score" -
-enemies killed.
+27.06.2019 The game is done. Known bugs: color changing of text - dont know how to fix;
+                                         potions overheal - now it's a feature, no armor, only raw health power.
+
+The game has 2 races: elves(lower health, higher damage) and dwarves(higher health and block, lower damage).
+2 weapons: Shield(yes) - can block(wow), block chance and raise shield option. And Daggers - higher damage and crit chance and overall accuracy, can sharp weapons to get a guaranteed crit on next attack. Crits can pierce block.
+After the fight you enter the store and can buy weapons, armor(no), potions, and cheap healing(try it).
+After the shop game starts the next fight with stronger opponent, and again and again till player dies.
+After it, it displays the game over screen and your score(enemies killed).
+This is an OOP learning project and my first ever project overall. Good luck to anyone who may possibly play it!
