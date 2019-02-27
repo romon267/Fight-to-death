@@ -225,13 +225,13 @@ namespace FightToDeath
                             warB.RaiseShield = false;
                             Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
                         }
-                        else if (strike >= 6 && strike <= 10)
+                        else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
                             Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
                         }
-                        else if (strike >= 11 && strike <= 18)
+                        else if (strike >= 10 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
                             Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
@@ -313,13 +313,13 @@ namespace FightToDeath
                             warB.RaiseShield = false;
                             Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
                         }
-                        else if (strike >= 6 && strike <= 10)
+                        else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
                             Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
                         }
-                        else if (strike >= 11 && strike <= 14)
+                        else if (strike >= 10 && strike <= 14)
                         {
                             warB.Health -= warA.BaseAttack;
                             Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
@@ -384,13 +384,13 @@ namespace FightToDeath
                             warB.RaiseShield = false;
                             Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
                         }
-                        else if (strike >= 6 && strike <= 10)
+                        else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
                             Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
                         }
-                        else if (strike >= 11 && strike <= 18)
+                        else if (strike >= 10 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
                             Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
@@ -471,17 +471,18 @@ namespace FightToDeath
                             warB.RaiseShield = false;
                             Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
                         }
-                        else if (strike >= 6 && strike <= 10)
+                        else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
                             Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
                         }
-                        else if (strike >= 11 && strike <= 14)
+                        else if (strike >= 10 && strike <= 14)
                         {
                             warB.Health -= warA.BaseAttack;
                             Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
                         }
+                        
                     }
                 }
                 else if (warB.Weapon.Type == "Daggers") // enemy DAGGERS, player DAGGERS
