@@ -14,13 +14,15 @@ namespace FightToDeath
         static int turnCounter = 1;
         static int playerTurnRow = 0;
         static int enemyTurnRow = 0;
-        static int fightDone = 0;
+        public static int fightDone = 0;
+        public static int enemiesKilled = 0;
         static Random rnd = new Random();
 
         public static void ResetChar(Enemy enemy)
         {
             enemy.Health = 150;
             enemy.Potion.Amount = 3;
+            enemy.Gold = 100;
         }
         public static void ResetChar(Player player)
         {
@@ -54,7 +56,25 @@ namespace FightToDeath
                     Console.WriteLine($"{enemy.Name} died and {player.Name} has won. Congrats!", Color.Yellow);
                     player.Gold += enemy.Gold;
                     fightDone += 1;
+                    enemiesKilled += 1;
                     ResetChar(enemy);
+                    for (int i = 0; i < enemiesKilled; i++)
+                    {
+                        enemy.Health += 50;
+                        enemy.BaseAttack += 15;
+                        enemy.Gold += 50;
+                    }
+                    int nextEnemyWep = RollDice(3);
+                    if (nextEnemyWep == 1)
+                    {
+                        enemy.Weapon.Name = "Stupid shield";
+                        enemy.Weapon.Type = "Shield";
+                    }
+                    else
+                    {
+                        enemy.Weapon.Name = "Stupid daggers";
+                        enemy.Weapon.Type = "Daggers";
+                    }
                 }
                 else if (enemy.Health > 0 && player.Health <= 0)
                 {
@@ -91,46 +111,53 @@ namespace FightToDeath
                     string answer;
                     do
                     {
-                        answer = Console.ReadLine();
+                        do
+                        {
+                            answer = Console.ReadLine();
 
-                        if (answer == "1")
-                        {
-                            Attack(player, enemy);
-                            break;
-                        }
-                        else if (answer == "2" && player.Weapon.Type == "Shield")
-                        {
-                            player.RaiseShield = true;
-                            Console.WriteLine("You raised the shield. Next enemy attack will be entirely blocked!", Color.LightGreen);
-                            break;
-                        }
-                        else if (answer == "2" && player.Weapon.Type == "Daggers")
-                        {
-                            player.SharpDaggers = true;
-                            Console.WriteLine("You sharped your daggers, next attack will be guaranteed crit!", Color.AntiqueWhite);
-                        }
-                        else if (answer == "3")
-                        {
-                            Consumable.usePotion(player.Potion.Amount, player);
-                            break;
-                        }
-                        else if (answer == "4")
-                        {
-                            Console.WriteLine($"Your health: {player.Health}", Color.IndianRed);
-                            Console.WriteLine($"{enemy.Name}'s health: {enemy.Health}", Color.DarkOrange);
-                            Console.WriteLine($"You have {player.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
-                            Console.WriteLine($"{enemy.Name} has {enemy.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
-                            if (player.SharpDaggers == true || player.RaiseShield == true)
+                            if (answer == "1")
                             {
-                                Console.WriteLine("You have some augmentation.", Color.AntiqueWhite);
+                                Attack(player, enemy);
+                                break;
                             }
-                            if (enemy.SharpDaggers == true || enemy.RaiseShield == true)
+                            else if (answer == "2" && player.Weapon.Type == "Shield")
                             {
-                                Console.WriteLine("Enemy has some augmentation, prepare anus.", Color.AntiqueWhite);
+                                player.RaiseShield = true;
+                                Console.WriteLine("You raised the shield. Next enemy attack will be entirely blocked!", Color.LightGreen);
+                                break;
+                            }
+                            else if (answer == "2" && player.Weapon.Type == "Daggers")
+                            {
+                                player.SharpDaggers = true;
+                                Console.WriteLine("You sharped your daggers, next attack will be guaranteed crit!", Color.AntiqueWhite);
+                            }
+                            else if (answer == "3")
+                            {
+                                Consumable.usePotion(player.Potion.Amount, player);
+                                break;
+                            }
+                            else if (answer == "4")
+                            {
+                                Console.WriteLine($"Your health: {player.Health}", Color.IndianRed);
+                                Console.WriteLine($"{enemy.Name}'s health: {enemy.Health}", Color.DarkOrange);
+                                Console.WriteLine($"You have {player.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
+                                Console.WriteLine($"{enemy.Name} has {enemy.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
+                                if (player.SharpDaggers == true || player.RaiseShield == true)
+                                {
+                                    Console.WriteLine("You have some augmentation.", Color.AntiqueWhite);
+                                }
+                                if (enemy.SharpDaggers == true || enemy.RaiseShield == true)
+                                {
+                                    Console.WriteLine("Enemy has some augmentation, prepare anus.", Color.AntiqueWhite);
 
+                                }
                             }
-                        }
-                    } while (answer == "4");
+                            else
+                            {
+                                Console.WriteLine("Please choose an option!", Color.GhostWhite);
+                            }
+                        } while (answer == "4");
+                    } while (answer != "1" && answer != "2" && answer != "3" && answer != "4");
                 }
                 else if (turnRoll == 2 && enemyTurnRow < 2)
                 {
@@ -229,7 +256,7 @@ namespace FightToDeath
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 18)
                         {
@@ -273,7 +300,7 @@ namespace FightToDeath
                         else
                         {
                             double damage = warA.BaseAttack * 1.5;
-                            warB.Health -= damage;
+                            warB.Health -= (warB.BaseBlock - damage);
                             Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
                         }
                     }
@@ -298,7 +325,9 @@ namespace FightToDeath
                             if (warB.RaiseShield == true)
                             {
                                 warB.RaiseShield = false;
-                                Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
+                                double damage = (warA.BaseAttack * 1.5) * 0.5;
+                                warB.Health -= damage;
+                                Console.WriteLine($"{warA.Name} pierced the shield of {warB.Name} and dealt {damage} damage!", Color.PaleVioletRed);
 
                             }
                             else
@@ -317,7 +346,7 @@ namespace FightToDeath
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 14)
                         {
@@ -340,7 +369,7 @@ namespace FightToDeath
                         {
                             warA.SharpDaggers = false;
                             double damage = warA.BaseAttack * 1.5;
-                            warB.Health -= damage;
+                            warB.Health -= (warB.BaseBlock - damage);
                             Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
                         }
                         else if (strike <= 2)
@@ -388,7 +417,7 @@ namespace FightToDeath
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 18)
                         {
@@ -432,7 +461,7 @@ namespace FightToDeath
                         else
                         {
                             double damage = warA.BaseAttack * 1.5;
-                            warB.Health -= damage;
+                            warB.Health -= (warB.BaseBlock - damage);
                             Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
                         }
                     }
@@ -457,7 +486,9 @@ namespace FightToDeath
                             if (warB.RaiseShield == true)
                             {
                                 warB.RaiseShield = false;
-                                Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
+                                double damage = (warA.BaseAttack * 1.5) * 0.5;
+                                warB.Health -= damage;
+                                Console.WriteLine($"{warA.Name} pierced the shield of {warB.Name} and dealt {damage} damage!", Color.PaleVioletRed);
                             }
                             else
                             {
@@ -475,7 +506,7 @@ namespace FightToDeath
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\n and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 14)
                         {
@@ -499,7 +530,7 @@ namespace FightToDeath
                         {
                             warA.SharpDaggers = false;
                             double damage = warA.BaseAttack * 1.5;
-                            warB.Health -= damage;
+                            warB.Health -= (warB.BaseBlock - damage);
                             Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
                         }
                         else if (strike <= 2)
