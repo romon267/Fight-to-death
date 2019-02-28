@@ -38,7 +38,7 @@ namespace FightToDeath
 
         public void GetWeapon()
         {
-            Console.WriteLine($"{Name} has {Weapon.Name}, it is {Weapon.Type}");
+            Console.WriteLine($"{Name} - {Weapon.Name}, это {Weapon.Type}");
         }
 
         public void EquipWeapon()

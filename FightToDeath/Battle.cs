@@ -53,7 +53,7 @@ namespace FightToDeath
             {
                 if (player.Health > 0 && enemy.Health <= 0)
                 {
-                    Console.WriteLine($"{enemy.Name} died and {player.Name} has won. Congrats!", Color.Yellow);
+                    Console.WriteLine($"{enemy.Name} умер и {player.Name} победил. Четко!", Color.Yellow);
                     player.Gold += enemy.Gold;
                     fightDone += 1;
                     enemiesKilled += 1;
@@ -78,7 +78,7 @@ namespace FightToDeath
                 }
                 else if (enemy.Health > 0 && player.Health <= 0)
                 {
-                    Console.WriteLine($"{player.Name} died and {enemy.Name} has won.", Color.OrangeRed);
+                    Console.WriteLine($"{player.Name} умер и {enemy.Name} победил. рип", Color.OrangeRed);
                     fightDone += 1;
                     Program.playerDead = true;
                     
@@ -94,20 +94,20 @@ namespace FightToDeath
                 {
                     playerTurnRow += 1;
                     enemyTurnRow = 0;
-                    Console.WriteLine("Turn {0}:", turnCounter, Color.AntiqueWhite);
-                    Console.WriteLine($"{player.Name} sees a chance to make a move!", Color.LightGreen);
-                    Console.WriteLine("What will you do?", Color.AntiqueWhite);
-                    Console.WriteLine("1. Attack.", Color.AntiqueWhite);
+                    Console.WriteLine("Ход {0}:", turnCounter, Color.AntiqueWhite);
+                    Console.WriteLine($"Ваш ход!", Color.LightGreen);
+                    Console.WriteLine("Что будете делать?", Color.AntiqueWhite);
+                    Console.WriteLine("1. Атака.", Color.AntiqueWhite);
                     if (player.Weapon.Type == "Shield")
                     {
-                        Console.WriteLine("2. Raise Shield.", Color.AntiqueWhite);
+                        Console.WriteLine("2. Поднять щит.", Color.AntiqueWhite);
                     }
                     else if (player.Weapon.Type == "Daggers")
                     {
-                        Console.WriteLine("2. Sharp your daggers");
+                        Console.WriteLine("2. Заточить клинки.");
                     }
-                    Console.WriteLine("3. Drink potion.", Color.AntiqueWhite);
-                    Console.WriteLine("4. Info.", Color.AntiqueWhite);
+                    Console.WriteLine("3. Выпить зелье.", Color.AntiqueWhite);
+                    Console.WriteLine("4. Информация.", Color.AntiqueWhite);
                     string answer;
                     do
                     {
@@ -123,13 +123,13 @@ namespace FightToDeath
                             else if (answer == "2" && player.Weapon.Type == "Shield")
                             {
                                 player.RaiseShield = true;
-                                Console.WriteLine("You raised the shield. Next enemy attack will be entirely blocked!", Color.LightGreen);
+                                Console.WriteLine("Вы подняли щит. Следующая атака врага будет полностью блокирована!", Color.LightGreen);
                                 break;
                             }
                             else if (answer == "2" && player.Weapon.Type == "Daggers")
                             {
                                 player.SharpDaggers = true;
-                                Console.WriteLine("You sharped your daggers, next attack will be guaranteed crit!", Color.AntiqueWhite);
+                                Console.WriteLine("Вы заточили клинки, следующая атака будет критической!", Color.AntiqueWhite);
                             }
                             else if (answer == "3")
                             {
@@ -138,23 +138,23 @@ namespace FightToDeath
                             }
                             else if (answer == "4")
                             {
-                                Console.WriteLine($"Your health: {player.Health}", Color.IndianRed);
-                                Console.WriteLine($"{enemy.Name}'s health: {enemy.Health}", Color.DarkOrange);
-                                Console.WriteLine($"You have {player.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
-                                Console.WriteLine($"{enemy.Name} has {enemy.Potion.Amount} potions left.", Color.LightGoldenrodYellow);
+                                Console.WriteLine($"Ваше здоровье: {player.Health}", Color.IndianRed);
+                                Console.WriteLine($"Здоровье врага: {enemy.Health}", Color.DarkOrange);
+                                Console.WriteLine($"У вас осталось {player.Potion.Amount} зелья.", Color.LightGoldenrodYellow);
+                                Console.WriteLine($"У врага еще {enemy.Potion.Amount} зелья.", Color.LightGoldenrodYellow);
                                 if (player.SharpDaggers == true || player.RaiseShield == true)
                                 {
-                                    Console.WriteLine("You have some augmentation.", Color.AntiqueWhite);
+                                    Console.WriteLine("У вас есть усиления (поднят щит или заточка клинков).", Color.AntiqueWhite);
                                 }
                                 if (enemy.SharpDaggers == true || enemy.RaiseShield == true)
                                 {
-                                    Console.WriteLine("Enemy has some augmentation, prepare anus.", Color.AntiqueWhite);
+                                    Console.WriteLine("У врага есть усиления.", Color.AntiqueWhite);
 
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Please choose an option!", Color.GhostWhite);
+                                Console.WriteLine("Выберите что-то!", Color.GhostWhite);
                             }
                         } while (answer == "4");
                     } while (answer != "1" && answer != "2" && answer != "3" && answer != "4");
@@ -164,8 +164,8 @@ namespace FightToDeath
                     // Enemy turn description
                     playerTurnRow = 0;
                     enemyTurnRow += 1;
-                    Console.WriteLine("Turn {0}:", turnCounter, Color.AntiqueWhite);
-                    Console.WriteLine($"{enemy.Name} sees a chance to make a move!", Color.Orange);
+                    Console.WriteLine("Ход {0}:", turnCounter, Color.AntiqueWhite);
+                    Console.WriteLine($"{enemy.Name} видит шанс нанести удар!", Color.Orange);
                     int enemyAction = RollDice(4);
                     if (enemyAction == 1)
                     {
@@ -187,7 +187,7 @@ namespace FightToDeath
                         if (enemy.RaiseShield == false)
                         {
                             enemy.RaiseShield = true;
-                            Console.WriteLine($"{enemy.Name} is rising his shield to cover!", Color.Orange);
+                            Console.WriteLine($"{enemy.Name} поднимает свой щит!", Color.Orange);
                         }
                         else
                         {
@@ -199,7 +199,7 @@ namespace FightToDeath
                         if (enemy.SharpDaggers == false)
                         {
                             enemy.SharpDaggers = true;
-                            Console.WriteLine($"{enemy.Name} is sharping his daggers, hell no!", Color.Orange);
+                            Console.WriteLine($"{enemy.Name} затачивает клинки!", Color.Orange);
                         }
                         else
                         {
@@ -218,11 +218,11 @@ namespace FightToDeath
                     {
                         playerTurnRow = 0;
                     }
-                    Console.WriteLine("Rerolling...", Color.AntiqueWhite);
+                    Console.WriteLine("Перебрасываем кости...", Color.AntiqueWhite);
                 }
                 
-                Console.WriteLine($"{player.Name} has now {player.Health} health left.", Color.IndianRed);
-                Console.WriteLine($"{enemy.Name} has now {enemy.Health} health left.", Color.DarkOrange);
+                Console.WriteLine($"Ваше здоровье: {player.Health}.", Color.IndianRed);
+                Console.WriteLine($"Здоровье врага: {enemy.Health}.", Color.DarkOrange);
 
                 Console.WriteLine("--------", Color.PaleTurquoise);
                 
@@ -242,7 +242,7 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 3)
                     {
-                        Console.WriteLine($"{warA.Name} missed!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся!", Color.Teal);
                     }
                     else
                     {
@@ -250,24 +250,24 @@ namespace FightToDeath
                         if (strike <= 3 || warB.RaiseShield == true)
                         {
                             warB.RaiseShield = false;
-                            Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
+                            Console.WriteLine($"{warA.Name} не смог пробить щит врага.\n {warB.Name} отразил весь урон!", Color.BlanchedAlmond);
                         }
                         else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} нанес удар, но {warB.Name} частично блокировал\nи получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                         else
                         {
                             double damage = warA.BaseAttack * 1.5;
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                            Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                         }
                     }
                 }
@@ -277,31 +277,31 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 5)
                     {
-                        Console.WriteLine($"{warA.Name} missed, {warB.Name} is elusive!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся.", Color.Teal);
                     }
                     else
                     {
                         int strike = RollDice(21);
                         if (strike <= 2)
                         {
-                            Console.WriteLine($"{warB.Name} thrown a smoke bomb and scared the shit out of {warA.Name}.\n{warA.Name} missed.");
+                            Console.WriteLine($"{warB.Name} кинул дымовую бомбу. {warA.Name} испугался и промахнулся.");
                         }
                         else if (strike >= 3 && strike <= 10)
                         {
                             double damage = (warA.BaseAttack * 0.6);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} sliced flesh of {warB.Name} but {warB.Name} slipped away\nin the last moment and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} задел {warB.Name} но {warB.Name} ускользнул\nв последний момент и получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 11 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                         else
                         {
                             double damage = warA.BaseAttack * 1.5;
                             warB.Health -= (warB.BaseBlock - damage);
-                            Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                            Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                         }
                     }
                 }
@@ -314,7 +314,7 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 2)
                     {
-                        Console.WriteLine($"{warA.Name} missed!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся!", Color.Teal);
                     }
                     else
                     {
@@ -327,31 +327,31 @@ namespace FightToDeath
                                 warB.RaiseShield = false;
                                 double damage = (warA.BaseAttack * 1.5) * 0.5;
                                 warB.Health -= damage;
-                                Console.WriteLine($"{warA.Name} pierced the shield of {warB.Name} and dealt {damage} damage!", Color.PaleVioletRed);
+                                Console.WriteLine($"{warA.Name} пробил щит врага и нанес {damage} урона!", Color.PaleVioletRed);
 
                             }
                             else
                             {
                                 double damage = warA.BaseAttack * 1.5;
                                 warB.Health -= damage;
-                                Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                                Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                             }
                         }
                         else if (strike <= 3 || warB.RaiseShield == true)
                         {
                             warB.RaiseShield = false;
-                            Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
+                            Console.WriteLine($"{warA.Name} не смог пробить щит врага.\n {warB.Name} отразил весь урон!", Color.BlanchedAlmond);
                         }
                         else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} нанес удар, но {warB.Name} частично блокировал\nи получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 14)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                     }
                 }
@@ -360,7 +360,7 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 5)
                     {
-                        Console.WriteLine($"{warA.Name} missed, {warB.Name} is elusive!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся.", Color.Teal);
                     }
                     else
                     {
@@ -370,22 +370,22 @@ namespace FightToDeath
                             warA.SharpDaggers = false;
                             double damage = warA.BaseAttack * 1.5;
                             warB.Health -= (warB.BaseBlock - damage);
-                            Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                            Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                         }
                         else if (strike <= 2)
                         {
-                            Console.WriteLine($"{warB.Name} thrown a smoke bomb and scared the shit out of {warA.Name}.\n{warA.Name} missed.");
+                            Console.WriteLine($"{warB.Name} кинул дымовую бомбу. {warA.Name} испугался и промахнулся.");
                         }
                         else if (strike >= 3 && strike <= 10)
                         {
                             double damage = (warA.BaseAttack * 0.8);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} sliced flesh of {warB.Name} but {warB.Name} slipped away\nin the last moment and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} задел {warB.Name} но {warB.Name} ускользнул\nв последний момент и получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 11 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                     }
                 }
@@ -403,7 +403,7 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 3)
                     {
-                        Console.WriteLine($"{warA.Name} missed!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся!", Color.Teal);
                     }
                     else
                     {
@@ -411,24 +411,24 @@ namespace FightToDeath
                         if (strike <= 3 || warB.RaiseShield == true)
                         {
                             warB.RaiseShield = false;
-                            Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
+                            Console.WriteLine($"{warA.Name} не смог пробить щит врага.\n {warB.Name} отразил весь урон!", Color.BlanchedAlmond);
                         }
                         else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} нанес удар, но {warB.Name} частично блокировал\nи получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                         else
                         {
                             double damage = warA.BaseAttack * 1.5;
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                            Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                         }
                     }
                 }
@@ -438,31 +438,31 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 5)
                     {
-                        Console.WriteLine($"{warA.Name} missed, {warB.Name} is elusive!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся.", Color.Teal);
                     }
                     else
                     {
                         int strike = RollDice(21);
                         if (strike <= 2)
                         {
-                            Console.WriteLine($"{warB.Name} thrown a smoke bomb and scared the shit out of {warA.Name}.\n{warA.Name} missed.");
+                            Console.WriteLine($"{warB.Name} кинул дымовую бомбу. {warA.Name} испугался и промахнулся.");
                         }
                         else if (strike >= 3 && strike <= 10)
                         {
                             double damage = (warA.BaseAttack * 0.6);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} sliced flesh of {warB.Name} but {warB.Name} slipped away\nin the last moment and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} задел {warB.Name} но {warB.Name} ускользнул\nв последний момент и получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 11 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                         else
                         {
                             double damage = warA.BaseAttack * 1.5;
                             warB.Health -= (warB.BaseBlock - damage);
-                            Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                            Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                         }
                     }
                 }
@@ -475,7 +475,7 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 2)
                     {
-                        Console.WriteLine($"{warA.Name} missed!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся!", Color.Teal);
                     }
                     else
                     {
@@ -488,30 +488,30 @@ namespace FightToDeath
                                 warB.RaiseShield = false;
                                 double damage = (warA.BaseAttack * 1.5) * 0.5;
                                 warB.Health -= damage;
-                                Console.WriteLine($"{warA.Name} pierced the shield of {warB.Name} and dealt {damage} damage!", Color.PaleVioletRed);
+                                Console.WriteLine($"{warA.Name} пробил щит врага и нанес {damage} урона!", Color.PaleVioletRed);
                             }
                             else
                             {
                                 double damage = warA.BaseAttack * 1.5;
                                 warB.Health -= damage;
-                                Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                                Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                             }
                         }
                         else if (strike <= 3 || warB.RaiseShield == true)
                         {
                             warB.RaiseShield = false;
-                            Console.WriteLine($"{warA.Name} couldn't pierce the stalwart defence of {warB.Name}\nhe blocked entire blow!", Color.BlanchedAlmond);
+                            Console.WriteLine($"{warA.Name} не смог пробить щит врага.\n {warB.Name} отразил весь урон!", Color.BlanchedAlmond);
                         }
                         else if (strike >= 4 && strike <= 9)
                         {
                             double damage = (warA.BaseAttack - warB.BaseBlock);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} attacked but {warB.Name} partially blocked\nand suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} нанес удар, но {warB.Name} частично блокировал\nи получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 10 && strike <= 14)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                         
                     }
@@ -521,7 +521,7 @@ namespace FightToDeath
                     int attackChance = RollDice(21);
                     if (attackChance <= 5)
                     {
-                        Console.WriteLine($"{warA.Name} missed, {warB.Name} is elusive!", Color.Teal);
+                        Console.WriteLine($"{warA.Name} промахнулся.", Color.Teal);
                     }
                     else
                     {
@@ -531,22 +531,22 @@ namespace FightToDeath
                             warA.SharpDaggers = false;
                             double damage = warA.BaseAttack * 1.5;
                             warB.Health -= (warB.BaseBlock - damage);
-                            Console.WriteLine($"{warA.Name} landed a critical strike dealing {damage} damage!!!", Color.DarkRed);
+                            Console.WriteLine($"{warA.Name} нанес критический удар - {damage} урона!!!", Color.DarkRed);
                         }
                         else if (strike <= 2)
                         {
-                            Console.WriteLine($"{warB.Name} thrown a smoke bomb and scared the shit out of {warA.Name}.\n{warA.Name} missed.");
+                            Console.WriteLine($"{warB.Name} кинул дымовую бомбу. {warA.Name} испугался и промахнулся.");
                         }
                         else if (strike >= 3 && strike <= 10)
                         {
                             double damage = (warA.BaseAttack * 0.8);
                             warB.Health -= damage;
-                            Console.WriteLine($"{warA.Name} sliced flesh of {warB.Name} but {warB.Name} slipped away\nin the last moment and suffered {damage} damage.", Color.PaleVioletRed);
+                            Console.WriteLine($"{warA.Name} задел {warB.Name} но {warB.Name} ускользнул\nв последний момент и получил {damage} урона.", Color.PaleVioletRed);
                         }
                         else if (strike >= 11 && strike <= 18)
                         {
                             warB.Health -= warA.BaseAttack;
-                            Console.WriteLine($"{warA.Name} dealt {warA.BaseAttack} damage.", Color.Red);
+                            Console.WriteLine($"{warA.Name} нанес {warA.BaseAttack} урона.", Color.Red);
                         }
                     }
                 }

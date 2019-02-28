@@ -26,7 +26,7 @@ namespace FightToDeath
         {
             if (potionsLeft == 0)
             {
-                Console.WriteLine($"{war.Name} desperatly tries to find potion but there are none left on his belt!", Color.Tomato);
+                Console.WriteLine($"{war.Name} отчаянно пытается найти зелья но у него их не осталось!", Color.Tomato);
             }
             else if (potionsLeft > 0)
             {
@@ -53,7 +53,7 @@ namespace FightToDeath
             int healChance = Battle.RollDice(21);
             if (healChance <= 5)
             {
-                Console.WriteLine($"{warrior.Name} can't open a bottle with potion, holy shit.", Color.Tomato);
+                Console.WriteLine($"{warrior.Name} не может открыть бутылку с зельем.", Color.Tomato);
             }
 
             else if (healChance >= 6 && healChance <= 18)
@@ -61,14 +61,14 @@ namespace FightToDeath
                 warrior.Potion.Amount -= 1;
                 double healEffect = warrior.Potion.Effect * 0.7;
                 warrior.Health += healEffect;
-                Console.WriteLine($"{warrior.Name} succesfully used a {warrior.Potion.Name} and gained {healEffect} health,\nand now has {warrior.Health} health.", Color.YellowGreen);
+                Console.WriteLine($"{warrior.Name} успешно использовал зелье и восстановил {healEffect} здовровья,\nи теперь у него: {warrior.Health} здоровья.", Color.YellowGreen);
             }
 
             else
             {
                 warrior.Potion.Amount -= 1;
                 warrior.Health += warrior.Potion.Effect;
-                Console.WriteLine($"{warrior.Name} critically used a {warrior.Potion.Name} and gained {warrior.Potion.Effect} health,\nand now has {warrior.Health} health!!!", Color.Yellow);
+                Console.WriteLine($"{warrior.Name} удачно открыл бутылку с зельем и восстановил {warrior.Potion.Effect} здоровья,\nтеперь у него: {warrior.Health} здоровья!", Color.Yellow);
             }
         }
         // overload for enemy type
@@ -77,7 +77,7 @@ namespace FightToDeath
             int healChance = Battle.RollDice(21);
             if (healChance <= 5)
             {
-                Console.WriteLine($"{warrior.Name} can't open a bottle with potion, holy shit.", Color.Tomato);
+                Console.WriteLine($"{warrior.Name} не может открыть бутылку с зельем.", Color.Tomato);
             }
 
             else if (healChance >= 6 && healChance <= 18)
@@ -85,14 +85,14 @@ namespace FightToDeath
                 warrior.Potion.Amount -= 1;
                 double healEffect = warrior.Potion.Effect * 0.7;
                 warrior.Health += healEffect;
-                Console.WriteLine($"{warrior.Name} succesfully used a {warrior.Potion.Name} and gained {healEffect} health,\nand now has {warrior.Health} health.", Color.YellowGreen);
+                Console.WriteLine($"{warrior.Name} успешно использовал зелье и восстановил {healEffect} здовровья,\nи теперь у него: {warrior.Health} здоровья.", Color.YellowGreen);
             }
 
             else
             {
                 warrior.Potion.Amount -= 1;
                 warrior.Health += warrior.Potion.Effect;
-                Console.WriteLine($"{warrior.Name} critically used a {warrior.Potion.Name} and gained {warrior.Potion.Effect} health,\nand now has {warrior.Health} health!!!", Color.Yellow);
+                Console.WriteLine($"{warrior.Name} удачно открыл бутылку с зельем и восстановил {warrior.Potion.Effect} здоровья,\nтеперь у него: {warrior.Health} здоровья!", Color.Yellow);
             }
         }
     }

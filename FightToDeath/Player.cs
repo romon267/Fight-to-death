@@ -10,7 +10,7 @@ namespace FightToDeath
 {
     class Player : Warrior
     {
-        public Consumable Potion = new Consumable("Health Potion", 50, 3, 25);
+        public Consumable Potion = new Consumable("Зелье здоровья", 50, 3, 25);
 
         public Player(string name = "Player",
             double health = 0,
